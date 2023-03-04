@@ -1,17 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:screenpage_project/secondpage.dart';
-
+import 'dart:convert';
 import 'package:screenpage_project/components/my_textfield.dart';
 import 'package:screenpage_project/thirdpage.dart';
+import 'package:http/http.dart';
 
-class FirstPage extends StatelessWidget {
-  FirstPage({Key? key}) : super(key: key);
+class FirstPage extends StatefulWidget {
+  const  FirstPage({Key? key}) : super(key: key);
+
+  @override
+  State<FirstPage> createState() => _FirstPageState();
+}
+
+class _FirstPageState extends State<FirstPage> {
   final firstnameController = TextEditingController();
+
   final lastnameController = TextEditingController();
 
   get circleRadius => null;
 
-  void REGISTER() {}
+  void REGISTER( FirstName, LastName)async {
+    try{
+      Response response = await get(
+          Uri.parse('https://630ecc12498924524a7fbab3.mockapi.io/faculties?FirstName=$FirstName&LastName=$LastName'));
+      print(response.body);
+      if (response.statusCode == 200) {
+        var data = jsonDecode(response.body.toString());
+        print('Login successfully');
+      } else {
+        print('failed');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    }
+
 
   @override
   Widget build(BuildContext context) {
@@ -101,16 +124,16 @@ class FirstPage extends StatelessWidget {
         children: [
           Expanded(
               child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                color: Colors.pinkAccent,
-                height: 240,
-                width: 500,
-              ),
-              Expanded(child: Container(color: Colors.white)),
-            ],
-          )),
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    color: Colors.pinkAccent,
+                    height: 240,
+                    width: 500,
+                  ),
+                  Expanded(child: Container(color: Colors.white)),
+                ],
+              )),
           Container(
             padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
@@ -176,7 +199,7 @@ class FirstPage extends StatelessWidget {
                     child: Text(
                       "LOREM IPSUM",
                       style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     ),
                   )
                 ],
@@ -198,7 +221,7 @@ class FirstPage extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Padding(
-            padding: const EdgeInsets.only(top: 230.0),
+            padding: const EdgeInsets.only(top: 230.0,),
             child: Center(
               child: MyTextField(
                 controller: lastnameController,
@@ -218,31 +241,38 @@ class FirstPage extends StatelessWidget {
               child: Column(
                 children: [
 
-                  Container(
-                    height: 49,
-                    width: 301,
-                    child: ElevatedButton(
-                      child: Text(
-                        "REGISTER",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                  GestureDetector(
+                    onTap: () {
+                      REGISTER(firstnameController.text.toString(),
+                          lastnameController.text.toString());
+                    },
+
+                    child: Container(
+                      height: 49,
+                      width: 301,
+                      child: ElevatedButton(
+                        child: Text(
+                          "REGISTER",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        style: ButtonStyle(
+                            foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                            backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.pink),
+                            shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(55),
+                                    side: BorderSide(color: Colors.pink)))),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SecondPage()));
+                        },
                       ),
-                      style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStateProperty.all<Color>(Colors.white),
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.pink),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(55),
-                                      side: BorderSide(color: Colors.pink)))),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SecondPage()));
-                      },
                     ),
                   ),
                   Container(
@@ -256,11 +286,11 @@ class FirstPage extends StatelessWidget {
                                   fontSize: 18, fontWeight: FontWeight.bold)),
                           style: ButtonStyle(
                               foregroundColor:
-                                  MaterialStateProperty.all<Color>(Colors.pink),
+                              MaterialStateProperty.all<Color>(Colors.pink),
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   Colors.white),
                               shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(55),
                                       side: BorderSide(color: Colors.pink)))),

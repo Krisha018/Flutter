@@ -3,6 +3,10 @@ import 'package:screenpage_project/firstpage.dart';
 import 'package:screenpage_project/secondpage.dart';
 import 'package:screenpage_project/thirdpage.dart';
 
+import 'api/api_call.dart';
+import 'api/login_api.dart';
+
+
 
 void main() {
   runApp(const MyApp());
@@ -16,6 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
         //

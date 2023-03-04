@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:screenpage_project/components/my_textfield.dart';
 import 'package:screenpage_project/firstpage.dart';
 
-
+import 'dropdownarrow.dart';
 
 class ThirdPage extends StatefulWidget {
   ThirdPage({Key? key}) : super(key: key);
@@ -14,22 +14,33 @@ class ThirdPage extends StatefulWidget {
 }
 
 class _ThirdPageState extends State<ThirdPage> {
+  String dropdownvalue = 'Item 1';
+
   get OPERATION2Controller => null;
 
   get OPERATION1Controller => null;
+  var items = [
+    'Item 1',
+    'Item 2',
+    'Item 3',
+    'Item 4',
+    'Item 5',
+  ];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
         body: Stack(children: [
           Column(
             children: [
-              Container(height: 55,width: 540,
+              Container(
+                height: 55,
+                width: 540,
                 alignment: Alignment.topCenter,
-
                 margin: EdgeInsets.only(top: 530),
                 child: Center(
                   child: MyTextField(
@@ -42,23 +53,42 @@ class _ThirdPageState extends State<ThirdPage> {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(right: 30.0, top: 360),
-            child: Container(
-              alignment: Alignment.centerRight,
-              margin: EdgeInsets.symmetric(vertical: 10),
-              child: IconButton(
-                icon: const Icon(Icons.arrow_drop_down),
-                iconSize: 40,
-                color: Colors.grey[500],
-                onPressed: () {
+            padding: const EdgeInsets.only(bottom: 180, left: 240),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                DropdownButton(
+                  // Initial Value
+                  value: dropdownvalue,
 
-                },
-              ),
+                  // Down Arrow Icon
+                  icon: const Icon(Icons.arrow_drop_down),
+                  iconSize: 40,
+                  dropdownColor: Colors.white,
+
+                  // Array list of items
+                  items: items.map((String items) {
+                    return DropdownMenuItem(
+                      value: items,
+                      child: Text(items),
+                    );
+                  }).toList(),
+                  // After selecting the desired option,it will
+                  // change button value to selected value
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      dropdownvalue = newValue!;
+                    });
+                  },
+                ),
+              ],
             ),
           ),
-          Container(height: 55,width: 540,alignment: Alignment.topCenter,
+          Container(
+            height: 55,
+            width: 540,
+            alignment: Alignment.topCenter,
             margin: EdgeInsets.only(top: 620),
-
             child: Center(
               child: MyTextField(
                 controller: OPERATION2Controller,
@@ -68,16 +98,35 @@ class _ThirdPageState extends State<ThirdPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(right: 30.0, top: 530),
-            child: Container(
-              alignment: Alignment.centerRight,
-              margin: EdgeInsets.symmetric(vertical: 10),
-              child: IconButton(
-                icon: const Icon(Icons.arrow_drop_down),
-                iconSize: 40,
-                color: Colors.grey[500],
-                onPressed: () {},
-              ),
+            padding: const EdgeInsets.only(bottom: 85, left: 240),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                DropdownButton(
+                  // Initial Value
+                  value: dropdownvalue,
+
+                  // Down Arrow Icon
+                  icon: const Icon(Icons.arrow_drop_down),
+                  iconSize: 40,
+                  dropdownColor: Colors.white,
+
+                  // Array list of items
+                  items: items.map((String items) {
+                    return DropdownMenuItem(
+                      value: items,
+                      child: Text(items),
+                    );
+                  }).toList(),
+                  // After selecting the desired option,it will
+                  // change button value to selected value
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      dropdownvalue = newValue!;
+                    });
+                  },
+                ),
+              ],
             ),
           ),
           Column(
@@ -93,10 +142,12 @@ class _ThirdPageState extends State<ThirdPage> {
                       Center(
                         child: Stack(children: [
                           Container(
-                            margin: EdgeInsets.only(top: 25,),
+                            margin: EdgeInsets.only(
+                              top: 25,
+                            ),
                             child: Padding(
                               padding: const EdgeInsets.only(
-                                  left: 10.0, right: 10, bottom: 10, top: 40),
+                                  left: 10.0, right: 10, bottom: 10, top: 30),
                               child: Align(
                                 alignment: Alignment.topLeft,
                                 child: Icon(
@@ -110,10 +161,10 @@ class _ThirdPageState extends State<ThirdPage> {
                           Column(
                             children: [
                               Container(
-                                margin: EdgeInsets.only(top: 70),
+                                margin: EdgeInsets.only(top: 60),
                                 child: Padding(
                                   padding: const EdgeInsets.only(
-                                      bottom: 10, left: 60),
+                                      bottom: 10, left: 65),
                                   child: Text(
                                     'LOREM  IPSUM',
                                     style: TextStyle(
@@ -162,14 +213,13 @@ class _ThirdPageState extends State<ThirdPage> {
                                     children: [
                                       Container(
                                         height: 80,
-                                        width: MediaQuery.of(context).size.width,
+                                        width:
+                                            MediaQuery.of(context).size.width,
                                         child: Row(
-
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
                                             Container(
-
                                               child: ClipOval(
                                                 child: SizedBox.fromSize(
                                                   size: Size.fromRadius(40),
@@ -181,8 +231,8 @@ class _ThirdPageState extends State<ThirdPage> {
                                               ),
                                             ),
                                             Padding(
-                                              padding:
-                                                  const EdgeInsets.only(left: 20),
+                                              padding: const EdgeInsets.only(
+                                                  left: 20),
                                               child: Container(
                                                 child: ClipOval(
                                                   child: SizedBox.fromSize(
@@ -196,8 +246,8 @@ class _ThirdPageState extends State<ThirdPage> {
                                               ),
                                             ),
                                             Padding(
-                                              padding:
-                                                  const EdgeInsets.only(left: 20.0),
+                                              padding: const EdgeInsets.only(
+                                                  left: 20.0),
                                               child: Container(
                                                 child: ClipOval(
                                                   child: SizedBox.fromSize(
@@ -211,8 +261,8 @@ class _ThirdPageState extends State<ThirdPage> {
                                               ),
                                             ),
                                             Padding(
-                                              padding:
-                                                  const EdgeInsets.only(left: 20.0),
+                                              padding: const EdgeInsets.only(
+                                                  left: 20.0),
                                               child: Container(
                                                 child: ClipOval(
                                                   child: SizedBox.fromSize(
@@ -230,12 +280,15 @@ class _ThirdPageState extends State<ThirdPage> {
                                       ),
                                       Container(
                                         height: 80,
-                                        width: MediaQuery.of(context).size.width,
+                                        width:
+                                            MediaQuery.of(context).size.width,
                                         child: Row(
-                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsets.only(left: 10.0),
+                                              padding: const EdgeInsets.only(
+                                                  left: 10.0),
                                               child: Container(
                                                 child: ClipOval(
                                                   child: SizedBox.fromSize(
@@ -249,7 +302,8 @@ class _ThirdPageState extends State<ThirdPage> {
                                               ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.only(left: 25.0),
+                                              padding: const EdgeInsets.only(
+                                                  left: 25.0),
                                               child: Container(
                                                 child: ClipOval(
                                                   child: SizedBox.fromSize(
@@ -263,7 +317,8 @@ class _ThirdPageState extends State<ThirdPage> {
                                               ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.only(left: 25.0),
+                                              padding: const EdgeInsets.only(
+                                                  left: 25.0),
                                               child: Container(
                                                 child: ClipOval(
                                                   child: SizedBox.fromSize(
@@ -277,7 +332,8 @@ class _ThirdPageState extends State<ThirdPage> {
                                               ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.only(left: 25.0),
+                                              padding: const EdgeInsets.only(
+                                                  left: 25.0),
                                               child: Container(
                                                 child: ClipOval(
                                                   child: SizedBox.fromSize(
@@ -298,7 +354,6 @@ class _ThirdPageState extends State<ThirdPage> {
                                 ),
                               ),
                             ),
-
                           ],
                         ),
                       )
@@ -306,10 +361,8 @@ class _ThirdPageState extends State<ThirdPage> {
                   ),
                 ),
               ),
-
             ],
           ),
-
         ]),
       ),
     );
